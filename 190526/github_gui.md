@@ -11,4 +11,10 @@
 - <https://desktop.github.com/> gui 실행파일 다운로드 site 주소
 
 - init, add 등 명령어 => 생략
+
 - commit 버튼 누르기 전 메모 작성 (-m "내용 요약 메시지")기능 대체
+
+
+
+
+
