@@ -1,3 +1,7 @@
+#현재 workspace 확인
+getwd()
+setwd("경로")
+
 # R페키지 개수 확인
 dim(available.packages())
 available.packages()
@@ -18,5 +22,13 @@ remove.packages("package_name")
 library(package_name)
 require(package_name)
 
-
+# 로드된 자원 조회
 search()
+
+#기본 데이터셋 조회
+data()
+
+# help 또는 ? : 도움말 시스템을 호출
+# help.search 또는 ?? : 주어진 문자열이 포함된 문서 검색
+# help.start : 시스템 전반에 대한 도움말
+# example : topic의 도움말에 있는 Examples 섹션 실행
