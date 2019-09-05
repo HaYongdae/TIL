@@ -1,3 +1,8 @@
+#기준시간 현재 위치 시간으로 변경
+Sys.setlocale(category = "LC_ALL", locale = "")
+#locale = "국가명" -> ex_ "Korean_Korea" , "English_US", "Japanese_Japan" 
+Sys.getlocale()
+
 #현재 workspace 확인
 getwd()
 setwd("경로")
@@ -28,7 +33,11 @@ search()
 #기본 데이터셋 조회
 data()
 
+# 메모리에 케시된 모든 데이터 목록
+ls()
+
 # help 또는 ? : 도움말 시스템을 호출
 # help.search 또는 ?? : 주어진 문자열이 포함된 문서 검색
 # help.start : 시스템 전반에 대한 도움말
 # example : topic의 도움말에 있는 Examples 섹션 실행
+# args(함수) : 함수의 파라미터 형식 조회
