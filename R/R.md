@@ -34,7 +34,7 @@
 
 
 
-##### 4. [조회 명령어]()
+##### 4. [조회 명령어](https://github.com/HaYongdae/TIL/blob/master/R/src/start_R.R)
 
 ```R
 # R페키지 개수 확인
