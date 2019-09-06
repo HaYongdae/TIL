@@ -343,6 +343,25 @@ ex_list <- list(c(1,2,3), "hello")
 # 추가
 
 ex_list$text <- 1
+
+#lapply 함수 ( list 반환)
+a <- list(c(1:5))
+b <- list(6:10)
+result <- lapply(c(a,b),max)
+result
+str(result)
+
+#sapply 함수 ( vector 반환)
+result <- sapply(c(a,b),max)
+str(result)
+
+# 중첩 리스트
+multi_list <- list(c1 = list(1,2,3),
+                   c2 = list(10,20,30),
+                   c3 = list(100,200,300))
+#다차원 리스트 -> 열단위 바인딩
+do.call(cbind, multi_list)
+
 ```
 
 ##### 2-2-5. DataFrame
@@ -350,12 +369,24 @@ ex_list$text <- 1
 ```R
 ## n*n (data.frame) - 다중형 ##
 
+###########################################################
+# DataFrame - 데이터베이스의 테이블 구조와 유사
+# R에서 가장 많이 사용하는 자료구조
+# 컬럼 단위로 서로 다른 데이터 유형(type)을 저장 가능
+# 리스트와 벡터의 혼합형으로 컬럼은 리스트, 컬럼 내의 데이터는 벡터 자료구조를 갖는다
+# DataFrame 생성함수 - data.frame(), read.table(), read.csv()
+# txt, excel, csv 파일로부터 DataFrame 생성
+# data.frame(컬럼1=자료, 컬럼2=자료, ...컬럼n=자료)
+########################################################### 
+#여러 개의 벡터 객체를 이용하여 데이터프레임을 생성할 수 있다. 
+#이때 모든 컬럼은 길이가 같아야 한다. 컬럼의 길이가 서로 다르면 오류가 발생한다.
+
 ID <- c(1,2,3,4,5,6,7,8,9,10)
 SEX <- c("F","M","F","M","F","M","F","M","F","M")
 AGE <- c(50,40,28,50,27,23,56,47,20,38)
 AREA <- c("서울","경기","제주","서울","서울","서울","서울","경기","서울","인천")
 
-dataframe_ex <- data.frame(ID,SEX,AGE,AREA)
+dataframe_ex <- data.frame(ID = ID,SEX = SEX,AGE = AGE,AREA =AREA)
 ```
 
 ##### 2-2-6. Factor
@@ -383,21 +414,78 @@ plot(ogender)
 
 ### 3. IO
 
-```R
-###### I
+---
 
-## EXCEL
+
+
+##### 3-1. Directory 탐색
+
+```R
+#현재 working directory출력
+getwd()
+
+#현재 working directory의 파일 목록 출력
+print(list.files())
+print(list.files(recursive = T)) 
+print(list.files(all.files = T)) # 모든 파일을 다 보여준다.
+
+# 파일 탐색기 실행
+file.choose()
+# read.xlsx(file.choose(),sheetIndex=1,encoding="UTF-8")
+```
+
+
+
+##### 3-2. 불러오기 (csv, txt)
+
+```R
+## EXCEL 파일
+
+install.packages("xlsx")   
+install.packages("rJava")   # rJava(xlsx 의 상위 패키지) 패키지 설치 
+
 install.packages("readxl")
+
+library(xlsx)
+library(rJava)
+
 library(readxl)
 
-excel_data_ex <- read_excel("경로", (sheet = n))
-View(excel_data_ex)
 
+excel_data_ex <- read_excel("경로", (sheet = n))
+choosing_excel_data <- read.xlsx(file.choose(),sheetIndex=1, encoding="UTF-8")
 
 ##TXT
 
-data <- read.table("경로",header = T/F, skip = n부터, nrows = n까지, sep="구분자" col.names = "이름 백터")
+################################################
+#텍스트파일 읽기 readLines(), read.table()
+################################################
+#아래 내용을 메모장에 작성해서 작업디렉토리의 datas디렉토리 아래 fruits.txt로 저장하세요
+#no  name  price   qty  
+#1   apple   500     5  
+#2   banana  200     2  
+#3   peach   200     7  
+#4   berry    50     9  
 
+# 텍스트 파일 읽기, 라인 단위를 문자열로 로딩, 라인단위로 저장되는 벡터 객체로 생성함
+file1 <- readLines("./data/fruits.txt")  
+print(file1)
+str(file1)
+
+#텍스트 파일의 내용을 읽어서 data.frame객체로 생성함
+data <- read.table("경로/파일") 
+data <- read.table("경로/파일", header=T)
+data <- read.table("경로/파일", header=T, stringsAsFactor=FALSE)
+data <- read.table("경로/파일", header=T, skip = n부터, nrows = n까지, sep="구분자" col.names = "이름 백터")
+
+
+```
+
+
+
+##### 3-3. 내보내기 (csv, txt)
+
+```R
 ###### O
 
 ## SAVE, LOAD
@@ -406,24 +494,13 @@ save(데이터, file ="저장할 파일명.rda")
 load("경로명")
 write.csv(데이터, file = "파일명.csv")
 write.table(데이터, file = "파일명.txt")
-	
 ```
+
+
 
 
 
 ### 4. 연산자
 
-![operators](R.assets/operators.jpg)
-
-
-
-## [ 심화 ] - 데이터 가공 / 패키지
-
-
-
-### 1. dplyr 패키지
-
----
-
-
+![operators](img/operators.jpg)
 
