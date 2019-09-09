@@ -105,3 +105,65 @@ itPerson <- subset(data, data$dept == 'IT')
 
 write.csv(itPerson, "./itperson.csv", row.names = F)
 loadTest <- read.csv("./itperson.csv")
+
+
+
+#문> 사용자로부터 표준입력으로 점수를 입력받아서 학점을 출력하시오
+#if(조건) { 실행문 } else if(조건) { 실행문장 }....else{실행문장}
+
+score <- scan()
+#점수 입력
+#엔터
+if(score>=90){
+  result ="A학점"
+}else if(score>=80){
+  result ="B학점"
+}else if(score>=70){
+  result ="C학점"
+}else if(score>=60){
+  result ="D학점"
+}else {
+  result ="F학점"
+}
+cat("점수 ",score,"의 학점은 ", result)
+
+# ifelse(조건식, 참인 경우 처리문, 거짓인 경우 처리문)
+#문) 사용자로부터 표준입력으로 정수를 입력받아서 짝수 또는 홀수 평가결과를 출력하시오
+result <- ifelse(score%%2==0, "짝수","홀수")
+cat(score,"는 ", result,"입니다")
+
+########################################################################
+
+no<-c(1:5)
+name <- c("홍길동", "이순신", "강감찬", "유관순", "김유신")
+score <-c(85,90,78,74,80)
+exam <- data.frame(학번=no, 이름=name, 성적=score)
+# 문> which함수를 사용해서 유관순의 학번, 이름, 성적을 출력
+exam[which(exam$이름 == "유관순"),]
+
+########################################################################
+
+
+# 문1> 함수 정의하시오 (매개변수는 정수1개, 매개변수가 0이면 0을 반환
+#                   0이 아니면 매개변수의 2배의 값 반환)
+
+f4 <- function(x) {
+  if(x == 0) {
+    return(0)
+  }else {
+    return(x*2)
+  }
+}
+print(f4(0))
+print(f4(3))
+print(f4(-3))
+
+
+########################################################################
+
+#문> 함수를 정의하시오 (첫번째 매개변수는 벡터객체, 
+#                 두번째 매개변수는 함수타입 - mean, sum, median을 문자열로 입력받아서
+#                 mean인경우 벡터의 평균을 반환, sum은 벡터 요소의 합계 반환
+#                 median은 벡터 요소의 중앙값 반환)
+
+

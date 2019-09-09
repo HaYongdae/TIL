@@ -369,6 +369,7 @@ do.call(cbind, multi_list)
 ```R
 ## n*n (data.frame) - 다중형 ##
 
+
 ###########################################################
 # DataFrame - 데이터베이스의 테이블 구조와 유사
 # R에서 가장 많이 사용하는 자료구조
@@ -381,12 +382,54 @@ do.call(cbind, multi_list)
 #여러 개의 벡터 객체를 이용하여 데이터프레임을 생성할 수 있다. 
 #이때 모든 컬럼은 길이가 같아야 한다. 컬럼의 길이가 서로 다르면 오류가 발생한다.
 
+# 생성
+# 1.
 ID <- c(1,2,3,4,5,6,7,8,9,10)
 SEX <- c("F","M","F","M","F","M","F","M","F","M")
 AGE <- c(50,40,28,50,27,23,56,47,20,38)
 AREA <- c("서울","경기","제주","서울","서울","서울","서울","경기","서울","인천")
 
 dataframe_ex <- data.frame(ID = ID,SEX = SEX,AGE = AGE,AREA =AREA)
+
+# 2.
+sales1 <- matrix(c(1,'Apple' ,500,5,
+                   2,'Peach' ,200,2,
+                   3,'Banana',100,4,
+                   4,'Grape' ,50 ,7), nrow=4, byrow=T)
+str(sales1)
+df1 <- data.frame(sales1)
+df2 <- data.frame(sales1, stringsAsFactors = FALSE)  # 값을 Factor가 아닌 chr로 만든다.
+names(df2) <-c('NO','Fruit','Price','Qty')
+# 내용 변환
+# as.numeric()함수 사용
+df2$Qty <- as.numeric(df2$Qty)
+df2$Price <- as.numeric(df2$Price)
+str(df2)
+#data.frame 요소에 접근 : 변수명$컬럼명 형식으로 요소 접근, 결과는 벡터로 반환
+print(df2$Qty) #컬럼이름으로 data.frame 의 특정 컬럼 데이터 모두 access
+
+#데이터프레임에 새로운 열 추가
+dataframe_ex$work <- c(T,T,F,F,T,F,T,T,T,F)  
+str(dataframe_ex)
+
+
+# subset(데이터프레임 객체, 조건) : 조건에 만족하는 행을 추출, 독립된 객체를 생성
+# df1 데이터 프레임에서 수량이 5보다 큰 추출 출력
+subset.df1 <- subset(df2, Qty>5)
+subset.df1
+str(subset.df1)
+
+df2<-data.frame(x=c(1:5), y=seq(2, 10, 2), z=c('a', 'b', 'c', 'd', 'e'))
+#summary()는 데이터프레임 객체의 데이터를 대상으로 최소값, 최대값, 중위수, 평균, 사분위수 값을 요약하여 반환
+summary(df2)
+
+df4 <- data.frame(name = c(1,2,3,4))
+df5 <- data.frame(name = c(3,4,5,6))
+
+result <- merge(df4, df5, all = T)
+
+# 추가
+dataframe_ex$tel <- "010-1111-2222"
 ```
 
 ##### 2-2-6. Factor
@@ -416,9 +459,7 @@ plot(ogender)
 
 ---
 
-
-
-##### 3-1. Directory 탐색
+#### 3-1. Directory 탐색
 
 ```R
 #현재 working directory출력
@@ -434,9 +475,7 @@ file.choose()
 # read.xlsx(file.choose(),sheetIndex=1,encoding="UTF-8")
 ```
 
-
-
-##### 3-2. 불러오기 (csv, txt)
+#### 3-2. 불러오기 (csv, txt)
 
 ```R
 ## EXCEL 파일
@@ -481,9 +520,7 @@ data <- read.table("경로/파일", header=T, skip = n부터, nrows = n까지, s
 
 ```
 
-
-
-##### 3-3. 내보내기 (csv, txt)
+#### 3-3. 내보내기 (csv, txt)
 
 ```R
 ###### O
@@ -496,11 +533,336 @@ write.csv(데이터, file = "파일명.csv")
 write.table(데이터, file = "파일명.txt")
 ```
 
+#### 3-4. XML IO
 
+```R
+###
+# XML데이터
+################################################
+
+install.packages("XML")
+library(XML)
+
+
+data2 <- xmlParse(file = "C:/Users/student/Desktop/git_repository/R/data/employees.xml")
+
+print(data2)
+
+#Root NODE만 추출
+rootnode <- xmlRoot(data2)
+#ROOT NODE 자식 노드 갯수
+rootSize <-xmlSize(rootnode)
+rootnode[1]
+rootnode[[1]][[3]]
+
+#xml을 R의 지원형식인 data.frame 으로 로딩
+xmldataframe <- xmlToDataFrame("C:/Users/student/Desktop/git_repository/R/data/employees.xml" ,stringsAsFactors=FALSE)
+str(xmldataframe)
+```
+
+#### 3-5. JSON IO
+
+```R
+###
+# JSON 데이터
+################################################
+
+install.packages("rjson")
+library(rjson)
+
+jsonEmp <- fromJSON(file = "C:/Users/student/Desktop/git_repository/R/data/employees2.json")
+
+# dataframe 변환
+emp.dataframe <- as.data.frame(jsonEmp)
+
+# 저장
+result <- toJSON(emp.dataframe)
+write(result, "C:/Users/student/Desktop/git_repository/R/data/employees2.json")
+list.files("C:/Users/student/Desktop/git_repository/R/data/")
+```
+
+#### 3-6. HTML IO
+
+```R
+###
+# HTML 데이터
+################################################
+
+# httr 패키지는 지정한 url의 HTML소스를 가져오는 GET() 함수를 제공하고
+# <table> 태그의 내용을 읽어올 수 있는 readHTMLTable()함수를 제공합니다.
+# readHTMLTable()에 사용되는 속성 
+# - get_url$content  : GET(url)함수에 의해서 가져온 HTML소스의 내용
+# - rawToChar() : 바이너리(binary) 소스를 HTML 태그로 변환
+# - stringsAsFactors = F : 문자열을 요인으로 처리하지 않고 순수한 문자열로 가져오기
+
+# https://ssti.org/blog/useful-stats-capita-personal-income-state-2010-2015
+
+install.packages("httr")
+library(httr)
+
+url <- "https://ssti.org/blog/useful-stats-capita-personal-income-state-2010-2015"
+get_url <- GET(url)
+html_cont <- readHTMLTable(rawToChar(get_url$content), stringsAsFactors=FALSE)
+str(html_cont)
+View(html_cont)
+html_cont.dataframe <- as.data.frame(html_cont)
+str(html_cont.dataframe)
+
+## 컬럼의 이름에 NULL이 붙기 때문에 변경해준다. (이 과정을 생략하는 방법은 ??)
+names(html_cont.dataframe) <- c("State", "y2010", "y2011","y2012", "y2013", "y2014", "y2015")
+str(html_cont.dataframe)
+```
+
+#### 3-7. sink (결과 자동 저장)
+
+```R
+###
+# sink()로 열기 - 명령어의 내역이 모두 자동 저장된다.
+################################################
+
+sink("C:/Users/student/Desktop/git_repository/R/data/data.csv", "a")
+url <- "https://ssti.org/blog/useful-stats-capita-personal-income-state-2010-2015"
+get_url <- GET(url)
+html_cont <- readHTMLTable(rawToChar(get_url$content), stringsAsFactors = F)
+str(html_cont)
+class(html_cont)
+print(html_cont)
+html_cont <- as.data.frame(html_cont)
+head(html_cont)
+str(html_cont)
+class(html_cont)
+names(html_cont) <- c("State", "y2010", "y2011","y2012", "y2013", "y2014", "y2015")
+tail(html_cont)
+sink()             #오픈된 파일 close
+```
+
+
+
+---
 
 
 
 ### 4. 연산자
 
 ![operators](img/operators.jpg)
+
+
+
+### 5. 조건문
+
+---
+
+#### 5-1. if문
+
+```R
+# if(조건식) {참인 경우 처리문 } else { 거짓인 경우 처리문}
+x<-3
+y<-5
+if(x*y >= 30) {
+  cat("x*y의 결과는 30이상입니다.\n")
+}else {
+  cat("x*y의 결과는 30미만입니다.\n")
+}
+```
+
+
+
+#### 5-2. ifelse구문
+
+```R
+# ifelse(조건식, 참인 경우 처리문, 거짓인 경우 처리문)
+ifelse(num%%2==0, "짝수", "홀수")
+```
+
+#### 5-3. which구문
+
+```R
+# which(조건)  : 벡터 객체를 대상으로 특정 데이터를 검색하는데 사용되는 함수
+# which() 함수의 인수로 사용되는 조건식에 만족하는 경우 벡터 원소의 위치(인덱스)가 출력되며, 조건식이 거짓이면 0이 출력된다.
+
+names <- c("kim", "lee", "choi", "park")
+which(names == "choi") # 인덱스 값 반환 - 데이터 프레임 검색에 사용가능
+```
+
+#### 5-4. 반복문
+
+```R
+# for(변수 in 자료구조변수) {실행문} : 지정한 횟수만큼 실행문을 반복 수행
+# while(조건) { 실행문 }  : while블럭안에 증감식 포함
+# repeat { 반복 수행문장 ; 반복문 탈출할 조건문; 증감식 }
+```
+
+#### 5-5. swich 구문
+
+```R
+#switch (비교문, 실행문1, 실행문2, 실행문3,...)
+#비교문의 변수의 값이 실행문에 있는 변수와 일치할때 , 해당 변수에 할당된 값이 출력됩니다.
+#사원이름을 입력 받아서 해당 사원의 급여 출력
+ename <- scan(what="")   # hong 입력
+switch(ename, hong=250, lee=300, park=350, kim=200) # 250 출력
+```
+
+
+
+
+
+---
+
+---
+
+
+
+### 6. 함수 (내장함수 + UDF)
+
+> 함수 : 코드의 집합
+> 함수명 <- function(매개변수) { 실행문 }
+
+> * 함수 내부의 변수를 전역변수로 선언하고 싶을 때 <<- 를 사용한다.
+
+```R
+# 함수의 매개변수로 함수 전달 가능
+callee <- function(x){
+  print(x*2)
+}
+caller <- function(v, call){
+  for (i in v) {
+    call(i)
+  }
+}
+
+print(caller(1:5, callee))
+
+# 함수 내부 변수를 전역변수로 선언하는 방법
+
+g1 <- 1000
+f7 <- function(){
+  g1 <<- 100   # <<- 사용
+  print(g1 + g1) 
+}
+print(f7())
+print(g1)
+
+# 변수에 함수 선언
+f8 <- function(num1){
+  local <- num1
+  return (function(num2) {
+    return (local+num2)
+  })
+}
+result.function <- f8(100)  #함수 리턴
+str(result.function)
+print(result.function(200))
+
+```
+
+
+
+#### 6-1. 매개변수 없는 함수
+
+```R
+#매개변수 없는 함수
+f1 <- function(){
+   cat("매개변수 없는 함수")
+}
+f1() #함수 호출
+```
+
+##### 6-1-1. 난수 생성 함수
+
+```R
+#############################################################################
+# rnorm() : 정규분포(연속형)의 난수 생성, 평균과 표준편차를 이용
+# rnorm(생성할 난수 개수, mean , sd)
+
+# runif() : 균등분포(연속형)의 난수 생성 , 최소값과 최대값을 이용
+# runif(생성할 난수 개수, min, max)
+
+# rbinom() : 이산변량(정수형)을 갖는 정규분포의 난수 생성
+# seed값을 지정하면 동일한 난수를 발생시킬 수 있다
+#############################################################################
+```
+
+#### 6-2. 매개변수 있는 함수
+
+```R
+#매개변수가 있는 함수
+f2 <- function(x){
+    if(x%%2==0) print(n)
+}
+f2(11)    #함수 호출
+```
+
+##### 6-2-1. 통계함수
+
+> 함수(데이터, trim = n(양극단에서 제거할 값의 개수), na.rm = T/F (NA값을 변량에서 제외))
+
+```R
+# 기술 통계량 처리 관련 내장함수
+min(vec) 	#최소값
+max(vec) 	#최대값
+range(vec) 	#범위
+mean(vec)  	#평균
+median(vec)	#중위값
+sum(vec)	#합계
+sort(x)		#정렬
+order(x) 	#벡터의 정렬된 값의 색인(index)을 보여주는 함수
+rank(x)		#
+sd(x)		#표준편차
+summary(x)	#요약
+table(x)	#??
+sample(x, y)# x 범위에서 y만큼 sample 데이터를 생성하는 함수
+```
+
+##### 6-2-2. 수학함수
+
+```R
+#############################################################################
+수학 관련 내장 함수
+abs(x) 							# 절대값(+)
+sqrt(x)							# 루트값
+ceiling(x), floor(x), round() 	# 올림, 내림, 반올림
+factorial(x)					# 팩토리얼
+which.min(x) / which.max(x) 	# 벡터 내 최소값과 최대값의 인덱스를 구하는 함수
+pmin(x) /pmax(x) 				# 여러 벡터에서의 원소 단위 최소값과 최대값
+prod() 							# 벡터의 원소들의 곱을 구하는 함수
+cumsum() / cumprod() 			# 벡터의 원소들의 누적합과 누적곱을 구하는 함수
+cos(x), sin(x), tan(x)  		# 삼각함수
+log(x) 							# 자연로그
+log10(x) 						# 10을 밑으로 하는 일반로그 함수
+exp(x) 							# 지수함수
+###############################################################
+```
+
+##### 6-2-3. 행렬함수
+
+```R
+###############################################################
+#행렬연산 관련 내장 함수
+ncol(x) 				# x의 열(컬럼) 수를 구하는 함수
+nrow(x) 				# x의 행 수를 구하는 함수
+t(x) 					# x 대상의 전치행렬을 구하는 함수
+cbind(...) 				# 열을 추가할 때 이용되는 함수
+rbind(...) 				# 행을 추가할 때 이용되는 함수
+diag(x) 				# x의 대각행렬을 구하는 함수
+det(x) 					# x의 행렬식을 구하는 함수
+apply(x, m, fun) 		# 행 또는 열에 지정된 함수를 적용하는 함수
+solve(x) 				# x의 역행렬을 구하는 함수
+eigen(x) 				# 정방행렬을 대상으로 고유값을 분해하는 함수
+svd(x) 					# m x n 행렬을 대상으로 특이값을 분해하는 함수
+x %*% y 				# 두 행렬의 곱을 구하는 수식
+###############################################################
+```
+
+#### 6-3. 결과 반환 함수
+
+```R
+#결과 반환 함수
+f3 <- function(a, b){
+    add <- a+b
+    return(add)
+}
+
+result <- f3(11, 4)    #함수 호출
+print(result)
+```
 

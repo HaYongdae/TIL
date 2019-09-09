@@ -1,4 +1,8 @@
-# stringr
+# stringr 패키지
+
+> 문자열 처리용 패키지
+
+
 
 ## 1. install / importing
 
