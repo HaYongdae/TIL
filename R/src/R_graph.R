@@ -101,6 +101,20 @@ legend(0,60, c("50-54", "55-59", "60-64", "65-69", "70-74")
 #legend() : 범례 위치, 이름, 글자 크기, 색상 지정
 #title() : 차트 제목, 차트 글꼴 지정
 
+
+## ggplot2 사용하기
+
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(chart_data, aes()) + geom_bar(width = 0.5)
+
+
+
+chart_data, ylim=c(0, 600),  col=rainbow(8),
+main="2014년도 VS 2015년도 분기별 매출현황 비교",
+ylab="매출액(단위:만원)", xlab="년도별 분기현황"
+
+
 ##########################################
 
 ##########################################
@@ -143,3 +157,78 @@ abline(h=37, lty=3, col="red")
 
 ##########################################
 
+##########################################
+# histogram
+##########################################
+
+summary(iris$Sepal.Length) #꽃받침 길이의 요약 통계
+
+hist(iris$Sepal.Length, xlab="iris$Sepal.Length", 
+     col="magenta", main="꽃받침 길이 histogram" , xlim=c(4.0, 8.0))
+
+
+##########################################
+# scatter plot 
+# 두 개 이상의 변수들 사이의 분포를 점으로 표시하는 그래프
+
+##########################################
+
+
+price <- runif(10, min=1, max=100)
+print(price)
+plot(price, col="red")
+par(new=T) #차트 추가
+line_chart=1:100
+#x축은 생성된 난수의 순서,  y축은 
+plot(line_chart, type="l", col="red", axes=F, ann=F) #대각선 추가 
+
+
+#좌표평면상의 점 등을 선으로 연결
+par(mfrow=c(2, 2))
+plot(price, type="l")  #실선
+plot(price, type="o")  #원형과 실선
+plot(price, type="h")  #직선
+plot(price, type="s")  #꺽은선
+
+# 중복된 데이터의 수만큼 plot점 크기 확대
+x <- c(1,2,3,4,2,4)
+y <- rep(2,6)
+table(x, y)
+
+par(mfrow=c(1,1))
+plot(x,y)
+
+xy.df <- as.data.frame(table(x,y))
+xy.df
+
+
+plot(x, y, pch = '@', col = 'blue', cex = 0.5*xy.df$Freq, xlab = "x벡터 원소", ylab = "y벡터 원소")
+
+install.packages("psych")
+library(psych)
+data(galton)
+
+#child컬럼, parent컬럼을 대상으로 교차테이블을 생성
+galtondf <- as.data.frame(table(galton$child, galton$parent))
+head(galtondf)
+str(galtondf)
+
+names(galtondf) <-c("child", "parent", "freq")
+head(galtondf)
+parent <- as.numeric(galtondf$parent)
+child <- as.numeric(galtondf$child)
+
+plot(parent, child, pch=21, col="blue", bg="green", 
+     cex=0.2*galtondf$freq, xlab="parent", ylab="child")
+
+
+#################################################
+# pairs() : 변수 간의 관계를 차트로 그릴 수 있다
+# graphics패키지에서 제공하는 paris()는 matrix 또는 data.frame의 
+# numeric 컬럼을 대상으로 변수들 사이의 비교 결과를 행렬구조의
+# 분산된 그래프로 제공합니다.
+#################################################
+attributes(iris)  #
+
+pairs(iris[, 1:4])
+pairs(iris[iris$Species=="setosa", 1:4])

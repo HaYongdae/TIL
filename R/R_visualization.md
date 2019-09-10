@@ -1,4 +1,84 @@
-# R_visualization
+# *R_visualization*
+
+> package - graphics(plot 제공 ), lattice(다변량 데이터), ggplot2(문법적 그래픽), ggamp(지도)
+>
+> function - plot(그래프), points(점), abline(),lines(),arrows(),segments()(선) , 
+
+
+
+## 0 . 저수준 그래픽
+
+### 0-1. 요소 함수
+
+- 점 - points()
+
+- 선 
+  - abline() - a(기울기), b(절편), h(horizontal), v(vertical), coef(선형 계수), reg()
+  - lines() - (시작점, 끝점, lty = (선종류1~6))
+  - 화살표 - arrows() - (angle(화살표 각도),length(화살표 길이), code(화살표 방향))
+  - segments() - lines()와 기능은 동일 - 꺽은선을 여러 그룹 동시에 표시할 때 사용
+
+- 면
+
+  - box() - outer/inner(테두리), plot(플롯 테두리), figure(그림의 테두리)
+  - rect() - 사각 도형 (x-left, y-bottom, x-right, y-top, [lwd=n(테두리 굵기),col = , density = , angle = , lty =])
+  - polygon() - 다각형 (plot()처럼 좌표 지정 , rect()처럼 옵션 설정)
+
+- 문자
+
+  - title() - plot의 각 타이틀 - main, sub, xlab, ylab 적용 - text(내부 설정)도 가능하고 각각도 사용 가능
+  - text() - 원하는 위치 지정 (x, y,  lable = "내용", [adj = 정렬방식(0-왼정렬, 1-오른정렬,0.5-가운데정렬)]) 
+  - expression(), plotmath - 수식
+  - mtext() - margin에 text를 지정한다.
+
+- 범례
+
+  - legend() - (x,y 좌표) or ("top,bottom,left,right,center"조합 가능) or (locator()로 마우스 설정 가능)
+
+    (위치 다음, "내용", [fill =,pch=,title=,col=,lty=,density= ]등 설정 가능)
+
+- 좌표축
+  - axis() - (side = 1(위), 3(아래),2(왼),4(오) 마진을 의미, [at=,lables=벡터,col.axis=,col=,pos=,lty=,lwd=,tick=T/F(선 있고 없고)])
+
+- 격자
+  - grid() - (x축 분할개수, y축 분할개수, [lty=,lwd,=col=])
+- 데이터 특징
+  - (1차원 밀도) - rug() - (데이터, side = margin 위치, [col=,ticksize=])
+  - (산점 테두리) - chull() - (데이터)
+
+
+
+### 0-2. par()
+
+> plot을 출력하는 여러 그래픽 인수를 가짐
+
+#### 0-2-1. par() 의 인수
+
+```R
+# mfrow, mfcol = c(n,n) 	# (대칭으로 분할) 플롯 영역에 나타낼 그래프 개수
+# layout() 					# (비대칭으로도 가능) layout(mat = matrix(c(1,1,2,3),ncol=2))
+	# layout.show 			# layout의 구분선을 그린다
+# fig, split.screen			# 자세히 다루지 않는다. (보다 정교하게 분할 가능)
+# new						# T/F 옵션으로 그래프 더하기, 덮어쓰기 지정
+# bty						# 그래프 테두리 옵션
+# pty						# 플롯 영역 ("s"(동일 비율),"m"(최대 비율))
+# type						# 데이터가 표현되는 형태 (p-점,b-점+선,c-선,o-점+선,s-꺽은선)
+# pch						# 점을 대신할 문자 지정
+# lty						# 선 종류
+# xlab, ylab
+# xlim, ylim
+# col
+# cex 						# 문자나 점 크기
+# str						# 문자의 회전 출력에 사용 ["str = n(각도)"]
+# tck						# 좌표 눈금선
+# tcl
+# mar						# 여백 조정
+# oma						# 바깥 여백
+# family, font				# 폰트
+# fg,bg						# 컬러 설정
+```
+
+
 
 
 
@@ -133,6 +213,8 @@ legend(0,60, c("50-54", "55-59", "60-64", "65-69", "70-74")
 
 
 
+
+
 ## 2. plot 그리기
 
 > 산점도
@@ -254,3 +336,146 @@ boxplot(VADeaths, range=0, notch=T )
 abline(h=37, lty=3, col="red")
 ```
 
+
+
+
+
+## 5. histogram 그리기
+
+
+
+### 5-1. histogram 의 매개변수
+
+```R
+Usage
+hist(x, ...)
+
+## Default S3 method:
+hist(x, breaks = "Sturges",
+     freq = NULL, probability = !freq,
+     include.lowest = TRUE, right = TRUE,
+     density = NULL, angle = 45, col = NULL, border = NULL,
+     main = paste("Histogram of" , xname),
+     xlim = range(breaks), ylim = NULL,
+     xlab = xname, ylab,
+     axes = TRUE, plot = TRUE, labels = FALSE,
+     nclass = NULL, warn.unused = TRUE, ...)
+```
+
+### 5-2. histogram 실습
+
+```R
+
+# 히스토그램 -  측정값의 범위(구간)를 그래프의 x축으로 놓고, 범위에 속하는 측정값의 출현 빈도수를 y축으로 나타낸 그래프 형태
+# 히스토그램의 도수의 값을 선으로 연결하면 분포곡선을 얻을 수 있다
+str(iris)     #data.frame, 
+head(iris)
+
+summary(iris$Sepal.Length) #꽃받침 길이의 요약 통계
+
+hist(iris$Sepal.Length, xlab="iris$Sepal.Length", 
+     col="magenta", main="꽃받침 길이 histogram" , xlim=c(4.3, 7.9))
+```
+
+
+
+## 6. plot으로 (산점도, scatter plot) 그리기
+
+> 점으로 데이터의 분산 정도를 나타낸 그래프
+
+### 6-1. scatter plot 실습
+
+```R
+price <- runif(10, min=1, max=100)
+print(price)
+plot(price, col="red")
+par(new=T) #차트 추가
+line_chart=1:100
+#x축은 생성된 난수의 순서,  y축은 
+plot(line_chart, type="l", col="red", axes=F, ann=F) #대각선 추가 
+
+
+#좌표평면상의 점 등을 선으로 연결
+par(mfrow=c(2, 2))
+plot(price, type="l")  #실선
+plot(price, type="o")  #원형과 실선
+plot(price, type="h")  #직선
+plot(price, type="s")  #꺽은선
+
+# 중복된 데이터의 수만큼 plot점 크기 확대
+x <- c(1,2,3,4,2,4)
+y <- rep(2,6)
+table(x, y)
+
+par(mfrow=c(1,1))
+plot(x,y)
+
+xy.df <- as.data.frame(table(x,y))
+xy.df
+
+
+plot(x, y, pch = '@', col = 'blue', cex = 0.5*xy.df$Freq, xlab = "x벡터 원소", ylab = "y벡터 원소")
+
+install.packages("psych")
+library(psych)
+data(galton)
+
+#child컬럼, parent컬럼을 대상으로 교차테이블을 생성
+galtondf <- as.data.frame(table(galton$child, galton$parent))
+head(galtondf)
+str(galtondf)
+
+names(galtondf) <-c("child", "parent", "freq")
+head(galtondf)
+parent <- as.numeric(galtondf$parent)
+child <- as.numeric(galtondf$child)
+
+plot(parent, child, pch=21, col="blue", bg="green", 
+     cex=0.2*galtondf$freq, xlab="parent", ylab="child")
+```
+
+
+
+## 7. 3차원 산점도
+
+### 7-1. 3차원 산점도 실습
+
+```R
+install.packages("scatterplot3d")
+library(scatterplot3d)
+levels(iris$Species)
+iris_setosa = iris[iris$Species=='setosa', ]
+iris_versicolor = iris[iris$Species=='versicolor', ]
+iris_virginica = iris[iris$Species=='virginica', ]
+d3 <- scatterplot3d(iris$Petal.Length, iris$Sepal.Length,
+      iris$Sepal.Width, type='n')  #type='n'은 기본 산점도를 표시하지 않음
+
+d3$points3d(iris_setosa$Petal.Length, iris_setosa$Sepal.Length ,
+            iris_setosa$Sepal.Width, bg="orange", pch=21)
+
+d3$points3d(iris_versicolor$Petal.Length, iris_versicolor$Sepal.Length ,
+            iris_versicolor$Sepal.Width, bg="blue", pch=23)
+
+d3$points3d(iris_virginica$Petal.Length, iris_virginica$Sepal.Length ,
+            iris_virginica$Sepal.Width, bg="green", pch=25)
+```
+
+
+
+ 
+
+---
+
+
+
+
+
+# ***ggplot2 이용하여 그리기***
+
+> [참고사이트](https://ggplot2.tidyverse.org/)
+
+
+
+![ggplot_cheatsheet1](img/ggplot_cheatsheet1.png)
+
+![ggplot_cheatsheet2](img/ggplot_cheatsheet2.png)
