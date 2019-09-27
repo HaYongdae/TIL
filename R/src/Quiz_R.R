@@ -167,3 +167,73 @@ print(f4(-3))
 #                 median은 벡터 요소의 중앙값 반환)
 
 
+
+
+install.packages("dplyr")
+library("dplyr")
+
+install.packages("hflights")
+library(hflights)
+#2011년도 미국 휴스턴 출발 모든 비행기의 이착률 정보 기록
+#대략 22만건, 21개의 변수(컬럼)로 구성된 데이터셋
+str(hflights)
+flights_df <- tbl_df(hflights) #현재 R콘솔 창크기에서 볼수 있는 만큼 10개행? 8개 컬럼?
+flights_df
+
+#hflights데이터셋으로부터 1월의 2일 모든 비행기의 이착률 정보 추출
+filter(flights_df, Month == 1 & DayofMonth == 2)
+
+#hflights데이터셋을 년, 월, 출발시간, 도착시간순으로 오름차순 정렬
+arrange(flights_df, Year, Month,DepTime, ArrTime)
+
+
+#hflights데이터셋을 년(오름차순), 월(오름차순), 출발시간(내림차순), 도착시간(오름차순) 정렬
+arrange(flights_df, Year, Month,desc(DepTime), desc(ArrTime))
+
+#hflights데이터셋으로부터 년, 월, 출발시간, 도착시간 컬럼만 검색
+flights_df %>% select(Year, Month, DepTime, ArrTime)
+
+
+#hflights데이터셋으로부터 출발지연시간과 도착지연시간과의 차리를 계산한 컬럼 추가
+mutate(flights_df, gap_Time = (ArrTime) - (DepTime) %/% 60)
+
+#hflights데이터셋으로부터 도착 시간에 대한 평균, 표준편차 계산
+summarize(flights_df,cnt = n(), avg_arr_Time = mean(ArrTime, na.rm = T))
+summarize(flights_df, arrTimeSD = sd(ArrTime, na.rm = T), arrTimeVAR = var(ArrTime, na.rm = T))
+
+
+sub_time <- select((flights_df %>% mutate(arr_dep =ArrDelay - DepDelay)),arr_dep)
+print(sub_time)
+sub_time_sel <- flights_df %>% select(arr_dep)
+
+install.packages("ggplot2")
+library(ggplot2)
+#자동차 배기량에 따라 고속도록 연비 ...데이터 셋
+mpg <- as.data.frame(ggplot2::mpg)
+print(mpg)
+str(mpg)
+#displ 배기량
+#manufaturer 제조사
+#cty 도시연비
+#hwy 고속도로 연비
+#class차종
+library(dplyr)
+
+table(mpg$class)
+
+#Quiz> 회사별로 분리, suv 추출, 통합 연비(도시연비+고속도로 연비) 변수 생성, 
+#통합 연비 평균 산출, 내림차순 정렬, 1~5위까지 출력
+mpg %>% group_by(manufacturer) %>% filter(class == "suv") %>% mutate(total_y = (cty + hwy)/2) %>%summarise(mean(total_y)) %>% arrange() %>% head()
+
+#Quiz> 어떤 회사에서 "compact"(경차) 차종을 가장 많이 생산하는지 알아보려고 합니다. 
+#각 회사별로 "compact" 차종을 내림차순으로 정렬해 출력하세요
+mpg %>% filter(class == "compact") %>% group_by(manufacturer) %>% summarise(count =n()) %>% arrange(desc(count))
+
+
+#Indometh 데이터셋으로부터 subject와 time을 구분변수로 long 형식으로 변환
+
+
+#Indometh 데이터셋으로부터 subject구분변수로 특정변수 농도의 합계 통계량 계산
+
+
+#Indometh 데이터셋으로부터 subject구분변수로 특정변수 농도의 평균, 최소값~최대값 범위를 계산

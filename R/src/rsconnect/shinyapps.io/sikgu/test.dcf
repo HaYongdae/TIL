@@ -1,0 +1,13 @@
+name: test
+title: test
+username:
+account: sikgu
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1240915
+bundleId: 2443022
+url: https://sikgu.shinyapps.io/test/
+when: 1569392969.71261
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|package_dplyr.R|package_stringr.R|packages_KoNLP.R|packages_reshape2.R|Quiz_R.R|Quiz2_barChart.R|R_dataCleaning.R|R_dataType.R|R_function.R|R_graph.R|R_IO.R|R_operator.R|R_Scraping.R|R_Scraping2.R|R_setting.R|R_time_series.R|R_var.R

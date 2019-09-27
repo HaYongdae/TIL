@@ -1,6 +1,26 @@
 # reshape2 패키지
 
-> 행렬 데이터 처리
+> 데이터 셋의 구성이 구분변수(identifier variable)에 의해서 특정 변수가 분류된 경우 
+> 데이터 셋의 모댱을 변경하는 패키지
+> 구분변수(identifier variable) : 데이터 셋에 1개 이상으로 분류되는 집단변수
+> 측정변수(measured variable): 구분변수에 의해서 구분되는 변수
+
+```R
+#reshape(), melt() : 구분변수를 기준으로 측정변수를 분류하여 새로운 컬럼을 생성
+reshape(data.frame, varying="반복되는 측정 색인",
+        v.names="반복되는 측정값", timevar="반복되는 측정 시간",
+        idvar="1개 이상의 값으로 분류되는 변수", direction="wide/long")
+#wide는 기준변수와 관련 변수가 1:n 관계로 관측치가 구성
+#long은 기준변수와 관련 변수가 1:1 관계로 관측치가 구성
+################################################################
+```
+
+## 0. 로드 
+
+```R
+install.packages("reshape")
+library(reshape)
+```
 
 
 

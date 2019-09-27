@@ -38,9 +38,11 @@
     (위치 다음, "내용", [fill =,pch=,title=,col=,lty=,density= ]등 설정 가능)
 
 - 좌표축
+  
   - axis() - (side = 1(위), 3(아래),2(왼),4(오) 마진을 의미, [at=,lables=벡터,col.axis=,col=,pos=,lty=,lwd=,tick=T/F(선 있고 없고)])
-
+  
 - 격자
+  
   - grid() - (x축 분할개수, y축 분할개수, [lty=,lwd,=col=])
 - 데이터 특징
   - (1차원 밀도) - rug() - (데이터, side = margin 위치, [col=,ticksize=])
@@ -196,7 +198,7 @@ legend(0,71, c("50-54", "55-59", "60-64", "65-69", "70-74")
        , cex=0.8, fil=rainbow(5))
 
 #누적막대 차트
-barplot(VADeaths, beside=F, col=rainbow(5) )
+barplot(VADeaths, beside=F, col=rainbow(5))
 title(main="미국 버지니아주의 하위계층 사망비율", font.main=4)
 legend(0,60, c("50-54", "55-59", "60-64", "65-69", "70-74")
        , cex=1, fil=rainbow(5))
@@ -462,20 +464,3 @@ d3$points3d(iris_virginica$Petal.Length, iris_virginica$Sepal.Length ,
 
 
 
- 
-
----
-
-
-
-
-
-# ***ggplot2 이용하여 그리기***
-
-> [참고사이트](https://ggplot2.tidyverse.org/)
-
-
-
-![ggplot_cheatsheet1](img/ggplot_cheatsheet1.png)
-
-![ggplot_cheatsheet2](img/ggplot_cheatsheet2.png)

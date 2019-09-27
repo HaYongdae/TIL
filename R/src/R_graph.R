@@ -108,13 +108,6 @@ install.packages("ggplot2")
 library(ggplot2)
 ggplot(chart_data, aes()) + geom_bar(width = 0.5)
 
-
-
-chart_data, ylim=c(0, 600),  col=rainbow(8),
-main="2014년도 VS 2015년도 분기별 매출현황 비교",
-ylab="매출액(단위:만원)", xlab="년도별 분기현황"
-
-
 ##########################################
 
 ##########################################
@@ -228,7 +221,30 @@ plot(parent, child, pch=21, col="blue", bg="green",
 # numeric 컬럼을 대상으로 변수들 사이의 비교 결과를 행렬구조의
 # 분산된 그래프로 제공합니다.
 #################################################
-attributes(iris)  #
+attributes(iris)
 
 pairs(iris[, 1:4])
 pairs(iris[iris$Species=="setosa", 1:4])
+
+
+#####################################################
+# 3차원 산점도
+# scatterplot3d(밑변, 오른쪽변 컬럼명, 왼쪽변 컬럼명)
+#####################################################
+install.packages("scatterplot3d")
+library(scatterplot3d)
+levels(iris$Species)
+iris_setosa = iris[iris$Species=='setosa', ]
+iris_versicolor = iris[iris$Species=='versicolor', ]
+iris_virginica = iris[iris$Species=='virginica', ]
+d3 <- scatterplot3d(iris$Petal.Length, iris$Sepal.Length,
+                    iris$Sepal.Width, type='n')  #type='n'은 기본 산점도를 표시하지 않음
+
+d3$points3d(iris_setosa$Petal.Length, iris_setosa$Sepal.Length ,
+            iris_setosa$Sepal.Width, bg="orange", pch=21)
+
+d3$points3d(iris_versicolor$Petal.Length, iris_versicolor$Sepal.Length ,
+            iris_versicolor$Sepal.Width, bg="blue", pch=23)
+
+d3$points3d(iris_virginica$Petal.Length, iris_virginica$Sepal.Length ,
+            iris_virginica$Sepal.Width, bg="green", pch=25)
