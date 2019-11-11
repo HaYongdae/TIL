@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- form 만들기 실습2 -->
+    <h1><b>FORM</b></h1><br>
+    주문서를 작성해주세요.
+
+    <form action="#">
+        이름:
+        <input type="text" id="name" placeholder="이름 입력하세요." autofocus><br>
+        날짜:
+        <input type="date" id="data" placeholder="2019.11.06"> <br>
+    <hr>
+    <div>
+        <h2><b>1. 샌드위치 선택</b></h2>
+        <input type="radio" name="menu" value="egg">에그 마요<br>
+        <input type="radio" name="menu" value="italian">이탈리안 비엠티<br>
+        <input type="radio" name="menu" value="turkey">터키 베이컨 아보카도<br>
+    </div>
+    <hr>
+    <div>
+        <h2><b>2. 사이즈 선택</b></h2>
+        <input type="range" step="10" min="10" max="100" >
+    </div>
+    <hr>
+    <div>
+        <h2><b>3. 빵</b></h2>
+        <select name="country">
+            <option value="korea">한국</option>
+            <option value="usa">미국</option>
+            <option value="canada">케나다</option>
+        </select>
+    </div>
+    <hr>
+    <div>
+        <h2><b>4. 야채/소스</b></h2>
+        <input type="checkbox" name="val" value="1">토마토<br>
+        <input type="checkbox" name="val" value="2">오이<br>
+        <input type="checkbox" name="val" value="3">할라피뇨<br>
+        <input type="checkbox" name="val" value="4">핫 칠리<br>
+        <input type="checkbox" name="val" value="5">바베큐<br>
+    </div>
+    <input type="submit" value="전송"><br>
+    </form>
+
+</body>
+
+</html>

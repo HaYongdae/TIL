@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table,
+        tr:not(.ex),
+        td:not(.ex),
+        th:not(.ex) {
+            border: 1px solid darkblue;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- table의 병합, 테두리 등 실습 -->
+    <table>
+        <tr>
+            <td colspan="4" align="center">점심 메뉴</td>
+        </tr>
+        <tr class="ex">
+            <th class="ex"></th>
+            <th class="ex">월</th>
+            <th class="ex">화</th>
+            <th class="ex">수</th>
+        </tr>
+        <tr>
+            <th>특식</th>
+            <th>초밥</th>
+            <th>바베큐</th>
+            <th>삼겹살</th>
+        </tr>
+        <tr>
+            <th>한식</th>
+            <th>육개장</th>
+            <th>미역국</th>
+            <th>삼계탕</th>
+        </tr>
+    </table>
+
+    <table>
+        <tr class="ex">
+            <td class="ex" align="center">TIME</td>
+            <td class="ex" align="center">INDOOR</td>
+            <td class="ex" colspan="2" align="center">OUTDOOR</td>
+        </tr>
+        <tr>
+            <th></th>
+            <th>소극장</th>
+            <th>잔디마당</th>
+            <th>대공연장</th>
+        </tr>
+        <tr>
+            <th>10:00</th>
+            <th rowspan="2">안녕하신가영</th>
+            <th></th>
+            <th>10CM</th>
+        </tr>
+        <tr>
+            <th>13:00</th>
+            <th rowspan="2">선우정아</th>
+            <th rowspan="2">참깨와 솜사탕</th>
+        </tr>
+        <tr>
+            <th>15:00</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>17:00</th>
+            <th>크러쉬</th>
+            <th></th>
+            <th>폴킴</th>
+        </tr>
+    </table>
+</body>
+
+</html>

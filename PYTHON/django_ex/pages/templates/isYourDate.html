@@ -1,0 +1,13 @@
+
+{% now "m월 d일" as datenow %}
+{% if datenow == date %}
+    <p>오늘은 {{datenow}}</p>
+    <p>당신의 생일은 {{date}}</p>
+    <p>그럼으로, 오늘은 당신의 날 YES</p>
+{% else %}
+    <p>오늘은 {{datenow}}</p>
+    <p>당신의 생일은 {{date}}</p>
+    <p>그럼으로, 오늘은 당신의 날 NO</p>
+{% endif %}
+
+{{Dday}}

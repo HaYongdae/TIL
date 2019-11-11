@@ -1,0 +1,102 @@
+<!-- 장고 탬플릿 랭귀지 실습 templates/dtl.html-->
+<!-- <p>{#{ 변수 }}</p> 일 때는 html과 dtl 둘 다 주석처리 되어야 한다 {{에 # 추가 -->
+<h3>1. 반복문</h3>
+{% for f in foods %}
+    <p>{{f}}</p>
+{% endfor %}
+<hr>
+{% for f in foods %}
+    <p style='font-size:"{{forloop.counter}}";'>{{forloop.counter}}. {{f}}</p>
+{% endfor %}
+<hr>
+{% for user in empty_list %}
+    <p>{{user}} 입니다.</p>
+<!-- empty : for 태그 내부가 비어있을 때 출력될 값을 지정하는 부분 -->
+{% empty %}
+    <p>현재 가입한 유저가 없습니다.</p>
+{% endfor %}
+
+
+<hr>
+<hr>
+
+
+<h3>2. 조건문</h3>
+{% if '짜장면' in foods %}
+    <p>짜장면엔 단무지 최고</p>
+{% endif %}
+<hr>
+{% for f in foods %}
+    {{ forloop.counter }}번째...
+    {% if forloop.first %}
+        <p>짜장면 + 고춧가루 </p>
+    {% else %}
+        <p>{{f}}</p>
+    {% endif %}
+{% endfor %}
+
+
+<hr>
+<hr>
+
+
+<h3>3. lorem ipsum</h3>
+{% lorem %}
+<hr>
+{% lorem 3 w %}
+<hr>
+{% lorem 4 w random %}
+<hr>
+{% lorem 2 p %}
+
+<hr>
+<hr>
+
+<!-- |를 활용하여 filter 를 적용 -->
+<h3>4. length filter 활용</h3>
+{% for msg in message %}
+    {% if msg|length > 5 %}
+        <p>글씨가 너무 길어요.</p>
+    {% else %}
+        <p>{{msg}}, {{msg|length}}</p>
+    {% endif %}
+{% endfor %}
+
+<hr>
+<hr>
+
+<h3> 5. 글자수 제한(truncate)</h3>
+<p>{{my_sentence}}</p>
+<p>{{my_sentence|truncatewords:3}} 단어 단위로 제한(3단어)</p> 
+<p>{{my_sentence|truncatechars:5}} 글자 단위로 제한(5자)</p>
+<p>{{my_sentence|truncatechars:15}} 글자 단위로 제한(15자)</p>
+
+<hr>
+<hr>
+
+<h3>6. 글자 관련 필터</h3>
+<p>{{ 'abc'|length}}</p>
+<p>{{ 'ABC'|lower}}</p>
+<!-- 각 단어의 첫 글자를 대문자로(|title) -->
+<p>{{ my_sentence|title}}</p>
+<!-- 리스트 값 중 랜덤한 값 추출(|random) -->
+<p>{{ foods|random}}</p> 
+
+<h3>7. 연산</h3>
+<p>{{4|add:6}}</p>
+<hr>
+
+<h3>8. 날짜 표현</h3>
+{{timenow}} <br>
+{% now "DATETIME_FORMAT" %} <br>
+{% now "SHORT_DATETIME_FORMAT" %} <br>
+{% now "DATE_FORMAT" %} <br>
+{% now "SHORT_DATE_FORMAT" %} <br>
+<hr>
+<!-- 사용자 지정 패턴 -->
+{% now "Y년 m월 d일 (D) h:i" %}<br>
+<!-- 사용자 패턴의 alias 지정 가능 -->
+{% now "Y" as current_year %}
+Copyright {{ current_year }}
+<hr>
+{{timenow|date:"SHORT_DATE_FORMAT"}}
