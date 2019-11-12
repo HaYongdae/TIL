@@ -134,6 +134,7 @@ def isityourbirth(request):
         res = False
 
     context = {
+        "res":res
         "Dday":Dday
     }
     return render(request,'isYourDate.html',context)

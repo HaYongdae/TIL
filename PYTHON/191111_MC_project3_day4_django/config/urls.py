@@ -32,4 +32,5 @@ urlpatterns = [
     path('dtl/', views.dtl),
     path('isYourDate/', views.isYourDate),
     path('isityourbirth/', views.isityourbirth),
+    
 ]

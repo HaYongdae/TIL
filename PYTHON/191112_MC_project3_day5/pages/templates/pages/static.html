@@ -1,0 +1,28 @@
+<!-- Static File 사용하기 -->
+{% extends 'base.html' %}
+{% block title %}
+    팽수
+{% endblock %}
+{% block local_resources %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheets/pages/style.css' %}">
+{% endblock %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- css 적용부 -->
+
+    <link rel="stylesheet" href="{% static 'stylesheets/pages/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Static 파일 실습</h1>
+    <img src="{% static 'images/pages/peng.jpg' %}" alt="펭수">
+</body>
+</html>
+{% endblock %}
