@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+    detail
+{% endblock %}
+{% block body %}
+<div class="container">
+    제목 : {{article.title}} <br>
+    내용 : {{article.content}} <br>
+    <button><a href="/CRUD/{{article.pk}}/update/">수정하기</a></button>
+    <button><a href="/CRUD/{{article.pk}}/delete/">삭제하기</a></button>
+</div>
+{% endblock %}
