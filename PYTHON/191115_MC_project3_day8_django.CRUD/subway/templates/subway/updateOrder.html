@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}
+    detail
+{% endblock %}
+{% block body %}
+    <div class = "container">
+        <form action='/CRUD/{{article.id}}/updateArticle/' method='POST'>
+            {% csrf_token %}
+            <input type="text" name="name" id="name" value="{{subways.name}}"><br>
+            <input type="text" name="phone" id="phone" value="{{subways.phone}}"><br>
+            <input type="text" name="address" id="address" value="{{subways.address}}"><br>
+            <input type="text" name="created_at" id="created_at" value="{{subways.created_at}}" readonly><br>
+            <div>
+                
+                <h2><b>1. 샌드위치 선택</b></h2>
+                <input type="radio" name="menu" value="에그 마요">에그 마요<br>
+                <input type="radio" name="menu" value="이탈리안 비엠티">이탈리안 비엠티<br>
+                <input type="radio" name="menu" value="터키 베이컨 아보카도">터키 베이컨 아보카도<br>
+            </div>
+            <div>
+                    <h2><b>3. 빵</b></h2>
+                    <select name="bread">
+                        <option value="korea">한국</option>
+                        <option value="usa">미국</option>
+                        <option value="canada">케나다</option>
+                    </select>
+                </div>
+                <hr>
+                <div>
+                    <h2><b>4. 야채</b></h2>
+                    <input type="checkbox" name="vegetable" value="토마토">토마토<br>
+                    <input type="checkbox" name="vegetable" value="오이">오이<br>
+                    <input type="checkbox" name="vegetable" value="할라피뇨">할라피뇨<br>
+                    <input type="checkbox" name="vegetable" value="양상추">양상추<br>
+                    <input type="checkbox" name="vegetable" value="올리브">올리브<br>
+                </div>
+                <div>
+                    <h2><b>5. 소스</b></h2>
+                    <input type="checkbox" name="sauce" value="케첩">케첩<br>
+                    <input type="checkbox" name="sauce" value="머스터드">머스터드<br>
+                    <input type="checkbox" name="sauce" value="소이">소이<br>
+                    <input type="checkbox" name="sauce" value="핫 칠리">핫 칠리<br>
+                    <input type="checkbox" name="sauce" value="바베큐">바베큐<br>
+                </div>
+                <div>
+                    <h2><b>5. 음료</b></h2>
+                    <input type="checkbox" name="drink" value="콜라">coke<br>
+                    <input type="checkbox" name="drink" value="사이다">sprite<br>
+                    <input type="checkbox" name="drink" value="오렌지주스">orange juice<br>
+                </div>
+                    
+
+            <input type='submit' value='submit'>
+        </form>
+
+{% endblock %}

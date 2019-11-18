@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<hr>
+<hr>
+
+<div class = "container">
+    <h3>subway의 index 입니다.</h3>
+    <ul>
+        <p> name / order_date </p>
+        {% for subway in subways %}
+            <li><a href="/subway/{{subway.id}}/orderDetail">{{subway.name}} : {{subway.menu}} / {{ subway.created_at }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+
+    order_check
+
+{% endblock %}
+{% block body %}
+<p>name : {{subways.name}}</p>
+<p>name : {{subways.phone}}</p>
+<p>name : {{subways.address}}</p>
+<p>date : {{subways.created_at}}</p>
+<p>menu : {{subways.menu}}</p>
+<p>bread : {{subways.bread}}</p>
+<p>sauce : {{subways.sauce}}</p>
+<p>drink : {{subways.drink}}</p>
+
+<button><a href="/subway/{{subways.id}}/update/">수정하기</a></button>
+<button><a href="/subway/{{subways.id}}/delete/">삭제하기</a></button>
+{% endblock %}
