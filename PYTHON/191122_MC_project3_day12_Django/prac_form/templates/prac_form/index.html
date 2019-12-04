@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Index{% endblock %}
+{% block local_headresources %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Index page</h1>
+    <br><br>
+    <table>
+    {% for book in books %}
+        <tr>
+            <td><a href="{% url 'prac:detail' book.id %}">{{ book.name }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    <br>
+
+</div>
+
+{% endblock %}
+{% block local_body_resources %}
+{% endblock %}

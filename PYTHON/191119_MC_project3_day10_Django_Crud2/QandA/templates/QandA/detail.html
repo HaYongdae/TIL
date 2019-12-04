@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+제목 : {{ que.title }} <br>
+내용 : {{ que.content }} <br>
+
+<a href="{% url 'QandA:update' que.id %}">수정하기</a>
+<form action='{% url "QandA:delete" que.id %}' method='POST'>
+    {% csrf_token %}
+    <input type='submit' value="삭제하기">
+</form>
+<hr><br>
+<form action = '{% url "QandA:comment" que.id %}' method='POST'>
+	{% csrf_token %}
+	<input type="text" name="comment">
+	<input type="submit">
+</form>
+<hr><br>
+<div> <!--  {#댓글 갯수 : {{comments|length }}<br>#}  -->
+	<!-- {# 댓글 갯수2 : {{que.comment_set.all|length }}<br>#} -->
+	<!-- {# 댓글 갯수3 : {{comments.count }}<br>#} -->
+	댓글 갯수 : {{com}}
+</div>
+
+<div>
+	<ul>
+	{% for com in comments %}
+	<li>{{ com.comment }}
+		<a href= '{% url "QandA:comment_edit" que.id ans.id %}'>댓글 수정하기</a>
+		<form action= '{% url "QandA:comment_del" que.id ans.id %}' method='POST'>
+			{% csrf_token %}
+			<input type="submit" value="댓글 삭제">
+		</form>
+	</li>
+	{% empty %}
+	<h4>등록된 댓글이 없음</h4>
+	{% endfor %}
+	</ul>
+
+</div>
+{% endblock %}

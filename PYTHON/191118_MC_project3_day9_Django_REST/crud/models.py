@@ -12,3 +12,7 @@ class Article(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.title}'
+
+class Comment(models.Model):
+    comment = models.CharField(max_length=200)
+    art = models.ForeignKey

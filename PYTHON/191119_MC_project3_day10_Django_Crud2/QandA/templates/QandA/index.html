@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Questions List</h1>
+<ol>
+    {% for que in ques %}
+    <li><a href="{% url 'QandA:detail' que.id %}">{{que.id}}</a></li>
+    <li><a href="{% url 'QandA:detail' que.id %}">{{que.que}}</a></li>
+    {% endfor %}
+</ol>
+{% endblock %}

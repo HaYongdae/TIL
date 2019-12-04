@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block body %}
+    <form action='{% url "QandA:new" %}' method='POST'>
+        {% csrf_token %}
+        <input type="text" name="que"><br>
+        <input type='submit'>
+    </form>
+{% endblock %}
