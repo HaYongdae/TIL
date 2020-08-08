@@ -1,0 +1,24 @@
+개발환경 만들기
+
+https://www.youtube.com/watch?v=KAS96uvbAzc
+이 영상을 따라서 설치했습니다
+
+1. 플러터 설치
+https://flutter-ko.dev/docs/get-started/install/windows
+다운로드 받고 압축풀고 path 설정
+
+2. 안드로이드 스튜디오 설치
+https://developer.android.com/studio/?gclid=CjwKCAjwrvv3BRAJEiwAhwOdMy0q-9GDHxrKwunWeaz5sYMKzYZPTfJpHs3f7vtyZmm5IaVG451erBoCtfIQAvD_BwE&gclsrc=aw.ds
+
+2.1 android sdk (컴퓨터에서 모바일 화면 띄우기) 설치
+안드로이드 스튜디오 세팅에서 설정 및 설치
+
+2.2 플러터 익스텐션 설치 (다트 한꺼번에 설치됨)
+안드로이드 스튜디오 플러그인에서 설치
+
+3. vscode에서 플러터 설치(선택)
+IDE를 vscode로도 사용가능(일단 안드로이드 스튜디오는 설치하고)
+https://blog.naver.com/chandong83/221839261430
+
+4.앱 만들어보기
+프로젝트 생성 -> 모바일 화면에 띄워보기

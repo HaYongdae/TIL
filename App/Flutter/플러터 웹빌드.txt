@@ -1,0 +1,12 @@
+1. 플러터 웹빌드
+
+https://flutter.dev/docs/get-started/web
+set up 파트 커맨드 라인은 명령 프롬프트에서 실행하기(vscode에서 안됨)
+
+create and run을 실행하면 모바일 화면에서 보던 데모 그대로 크롬에 나옵니다
+
+
+
+2. 웹뷰 튜토리얼
+https://www.filledstacks.com/post/create-and-deploy-a-flutter-web-app/
+이어지는 튜토리얼들로 반응형 웹뷰를 구성
