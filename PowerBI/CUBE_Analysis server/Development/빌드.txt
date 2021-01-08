@@ -1,0 +1,4 @@
+# Build Analysis Services Projects
+
+## 빌드 Doc : https://docs.microsoft.com/en-us/analysis-services/multidimensional-models/build-analysis-services-projects-ssdt?view=asallproducts-allversions
+## 배포 Doc : https://docs.microsoft.com/ko-kr/analysis-services/multidimensional-models/deploy-analysis-services-projects-ssdt?view=asallproducts-allversions
